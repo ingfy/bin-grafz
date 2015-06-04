@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BinGrafz</title>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+
+        <form id="settings">
+            <div>
+                <label>Canvas size</label>
+                <input type="number" name="width" value="500" />
+                <input type="number" name="height" value="500" />
+            </div>
+            <div>
+                <label for="treeJSON">Tree as JSON</label>
+                <br/>
+<textarea name="treeJSON" cols="40" rows="20">
+{
+  "distance": 12,
+  "children": [
+    {
+      "distance": 1,
+      "children": [
+        {
+          "distance": 3
+        },
+        {
+          "distance": 1.5
+        }
+      ]
+    },
+    {
+      "distance": 5,
+      "children": [
+        {
+          "distance": 2
+        },
+        {
+          "distance": 2,
+          "children": [
+            {
+              "distance": 1
+            },
+            {
+              "distance": 6
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</textarea>
+            </div>
+        </form>
+
+        <script src="dist/app.js"></script>
+        <script>
+            App.init({canvas: canvas});
+
+            function updateAndRedraw() {
+                canvas.width = settings.width.value;
+                canvas.height = settings.height.value;
+                App.setTreeJSON(settings.treeJSON.value);
+                App.draw();
+            }
+
+            settings.treeJSON.addEventListener('input', updateAndRedraw);
+            settings.width.addEventListener('input', updateAndRedraw);
+            settings.height.addEventListener('input', updateAndRedraw);
+
+            updateAndRedraw();
+        </script>
+    </body>
+</html>
